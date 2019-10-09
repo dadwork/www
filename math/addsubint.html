@@ -16,7 +16,7 @@
         display: inline-block;
         font-size: 18px;
     }
-    .answer input[type="text"]{
+    .answer input[type="number"]{
         height: 32px;
         padding: 5px 10px;
         border: 1px solid #CCCCCC;
@@ -58,8 +58,8 @@ function problem() {
 function next_problem() {
     $(".result").empty();
     $(".problem").html(problem());
-    $('.answer input[type="text"]').val('');
-    $('.answer input[type="text"]').focus();
+    $('.answer input[type="number"]').val('');
+    $('.answer input[type="number"]').focus();
 }
 
 $(document).ready(function(){
@@ -67,7 +67,7 @@ $(document).ready(function(){
         next_problem();
     });
 
-    $('.answer input[type="text"]').keypress(function( event ) {
+    $('.answer input[type="number"]').keypress(function( event ) {
         if ( event.which == 13 ) {
             event.preventDefault();
             var inputVal = $(this).val();
