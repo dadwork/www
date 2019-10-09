@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="dadwork.css">
+<title>Add and Substract Integers - Flashcards</title>
+<style type="text/css">
+    body{
+        font-family: monospace, sans-serif;
+    }
+    .answer{
+        width: 300px;
+        position: relative;
+        display: inline-block;
+        font-size: 18px;
+    }
+    .answer input[type="text"]{
+        height: 32px;
+        padding: 5px 10px;
+        border: 1px solid #CCCCCC;
+        font-size: 18px;
+    }
+    .result{
+        width: 300px;
+        position: relative;
+        display: inline-block;
+        font-size: 18px;
+    }
+    .right {
+        color: green;
+    }
+    .wrong {
+        color: red;
+    }
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+function randomChoice(arr) {
+    return arr[Math.floor(arr.length * Math.random())];
+}
+
+function problem() {
+    var numbers = [-20, -19, -18, -17, -16, -15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0,
+    20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+    var operators = ["+", "-"];
+    var ls = randomChoice(numbers);
+    var op = randomChoice(operators);
+    var rs = randomChoice(numbers);
+    var ans = op == "+" ? ls + rs : ls - rs;
+
+    return "<h2 class=\"solution\" val=\"" + ans + "\">" + ls + " " + op + " " + rs + " = </h2>";
+}
+
+function next_problem() {
+    $(".result").empty();
+    $(".problem").html(problem());
+    $('.answer input[type="text"]').val('');
+    $('.answer input[type="text"]').focus();
+}
+
+$(document).ready(function(){
+    $(".problem").ready(function(){
+        next_problem();
+    });
+
+    $('.answer input[type="text"]').keypress(function( event ) {
+        if ( event.which == 13 ) {
+            event.preventDefault();
+            var inputVal = $(this).val();
+            var solution = $(".problem").children(".solution").attr("val");
+            if (inputVal == solution) {
+                $(".result").html("<b class=\"right\">YES!</b>");
+                window.setTimeout(function(){next_problem()}, 1000);
+            } else {
+                $(".result").html("<b class=\"wrong\">:( Try Again!</b>");
+            }
+        }
+    });
+});
+
+</script>
+</head>
+
+<body>
+    <div class="problem">
+    </div>
+    <div class="answer">
+        <input type="text" autocomplete="off" placeholder="Answer..."/>
+    </div>
+    <p class="result"></p>
+</body>
+</html>
